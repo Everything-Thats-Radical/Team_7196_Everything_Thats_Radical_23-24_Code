@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@Autonomous(name = "Red_Backstage_45")
+@Autonomous(name = "Blue_Backstage_11")
 public class Auto1 extends LinearOpMode{
     DcMotor FLDrive = null; // standard motor declarations
     DcMotor FRDrive = null;
@@ -20,7 +20,6 @@ public class Auto1 extends LinearOpMode{
     DcMotor BRDrive = null;
     IMU imu = null;
 
-    //Github TEST
 
     public void runOpMode() throws InterruptedException {
 
@@ -57,10 +56,9 @@ public class Auto1 extends LinearOpMode{
         double aHeading = 180;
 
         //TODO: WRITE YOUR AUTO CODE HERE!
-        driveStraight(10, 0.7);
-        turnToAngle(90.0);
-        driveStraight(20, 0.4);
-        turnToAngle(180.0);
+        driveStraight(32, 0.7);
+        sleep(100);
+        turnToAngle(-90.0);
 
     }
 
@@ -124,20 +122,7 @@ public class Auto1 extends LinearOpMode{
 
     //This turns the robot. Don't question it Will did it.
     void turnToAngle(double angle) {
-        double botHeadingDeg = -imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        double rotate = botHeadingDeg - angle; // algorithm for automatic turning
-        rotate += 540;
-        rotate = (rotate % 360) - 180;
 
-        double rx = rotate / 70;
-        FLDrive.setPower(rx);
-        BLDrive.setPower(rx);
-        BLDrive.setPower(-rx);
-        BRDrive.setPower(-rx);
-
-        while (Math.abs(botHeadingDeg - angle) > 10) {// 10 degree margin
-            botHeadingDeg = -imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        }
     }
 
     public void stopMove() {
