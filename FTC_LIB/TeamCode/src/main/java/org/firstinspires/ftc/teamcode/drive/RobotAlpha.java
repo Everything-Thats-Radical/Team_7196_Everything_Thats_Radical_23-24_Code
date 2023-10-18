@@ -29,6 +29,7 @@ public class RobotAlpha extends LinearOpMode {
         DcMotor FRDrive = null;
         DcMotor BLDrive = null;
         DcMotor BRDrive = null;
+        DcMotor LiftRaise = null;
 
         //Write numerical variables here
         double desiredHeading = 0;
@@ -36,11 +37,13 @@ public class RobotAlpha extends LinearOpMode {
         FRDrive = hardwareMap.get(DcMotor.class, "FRDrive");
         BLDrive = hardwareMap.get(DcMotor.class, "BLDrive");
         BRDrive = hardwareMap.get(DcMotor.class, "BRDrive");
+        LiftRaise = hardwareMap.get(DcMotor.class, "LiftRaise");
 
         FLDrive.setDirection(DcMotor.Direction.FORWARD);
         BLDrive.setDirection(DcMotor.Direction.FORWARD);
         FRDrive.setDirection(DcMotor.Direction.FORWARD);
         BRDrive.setDirection(DcMotor.Direction.FORWARD);
+        LiftRaise.setDirection(DcMotor.Direction.FORWARD);
 
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
@@ -61,7 +64,6 @@ public class RobotAlpha extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            //TODO: Finish write tele-op
 
             double speedMultiplier;
 
@@ -88,6 +90,17 @@ public class RobotAlpha extends LinearOpMode {
             } else {
                 speedMultiplier = 1.0;
             }
+
+            boolean liftUp = gamepad2.a;
+            boolean liftDown = gamepad2.b;
+            if(liftUp && !liftDown)
+            {
+                LiftRaise.setPower(.7);
+            } else if (liftDown && !liftUp)
+            {
+                LiftRaise.setPower(-.7);
+            }
+
 
             //TODO: WRITE MORE CODE HERE TO MAKE MOTORS MOVE
 
